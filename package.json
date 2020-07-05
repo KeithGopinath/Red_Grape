@@ -1,7 +1,7 @@
 {
   "name": "redgrape",
   "version": "1.0.0",
-  "description": "Redgrape",
+  "description": "redgrape",
   "main": "index.js",
   "scripts": {
     "api": "json-server --watch  src/mocks/db.json --routes src/mocks/db-routes.json --port 8000",
@@ -16,7 +16,6 @@
   "license": "ISC",
   "dependencies": {
     "@emotion/core": "^10.0.28",
-    "@emotion/styled": "^10.0.27",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
