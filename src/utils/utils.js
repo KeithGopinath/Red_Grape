@@ -1,2 +1,2 @@
 /* eslint-disable quote-props */
-export const Buttons = [{ 'button': 'Reds' }, { 'button': 'Whites' }, { 'button': 'Mixed' }];
+export const Buttons = [{ 'button': 'Red' }, { 'button': 'White' }, { 'button': 'Other' }];

@@ -19,7 +19,8 @@ class Home extends React.Component {
       whites: true,
       mixed: true,
       zipcodeError: true,
-      product: '',
+      product: 'prod4070313',
+      initialButtonColor: 'Red',
     };
   }
 
@@ -27,14 +28,16 @@ class Home extends React.Component {
     this.props.getOffers();
   }
 
-  caseOption = (obj) => {
+  caseOption = (event, obj) => {
     const { button } = obj;
-    if (button === 'Reds') {
-      this.setState({ reds: false, whites: true, mixed: true });
-    } else if (button === 'Whites') {
-      this.setState({ reds: true, whites: false, mixed: true });
+    const array = this.props.offers.mainItems;
+    const radio = array.filter((data) => (data.product.colourName === button)).map((data) => data.product.id);
+    if (button === 'Red') {
+      this.setState({ reds: false, whites: true, mixed: true, initialButtonColor: button, product: radio[0] });
+    } else if (button === 'White') {
+      this.setState({ reds: true, whites: false, mixed: true, initialButtonColor: button, product: radio[0] });
     } else {
-      this.setState({ reds: true, whites: true, mixed: false });
+      this.setState({ reds: true, whites: true, mixed: false, initialButtonColor: button, product: radio[0] });
     }
   }
 
@@ -50,11 +53,19 @@ class Home extends React.Component {
 
   onChangeValue = (event) => {
     const id = event.target.value;
-    this.setState({ product: id });
+    const array = this.props.offers.mainItems;
+    const button = array.filter((data) => (data.product.id === id)).map((data) => data.product.colourName);
+    if (id === 'prod4070313') {
+      this.setState({ reds: false, whites: true, mixed: true, initialButtonColor: button[0], product: id });
+    } else if (id === 'prod4070314') {
+      this.setState({ reds: true, whites: false, mixed: true, initialButtonColor: button[0], product: id });
+    } else {
+      this.setState({ reds: true, whites: true, mixed: false, initialButtonColor: button[0], product: id });
+    }
   }
 
   render() {
-    const { reds, whites, mixed, zipcodeError } = this.state;
+    const { reds, whites, mixed, zipcodeError, initialButtonColor } = this.state;
     const { mainItems } = this.props.offers;
     const { city, stateName } = this.props.zipcode;
     const details = !Object.keys(this.props.zipcode).length;
@@ -85,7 +96,7 @@ class Home extends React.Component {
           <div>
             <p css={CaseOptions}>Your Case Options</p>
             <div css={css`float: right`}>
-              {Buttons.map((obj) => <Button id="buttons" value={obj.button} type="submit" className="btn-lg" css={OptionButtons} onClick={() => this.caseOption(obj)}>{obj.button}</Button>)}
+              {Buttons.map((obj) => <Button id={obj.button} value={obj.button} type="submit" className={`btn-lg ${obj.button === initialButtonColor ? `${obj.button}` : ''}`} css={OptionButtons} onClick={(e) => this.caseOption(e, obj)}>{obj.button}</Button>)}
             </div>
           </div>
         </div>

@@ -16,7 +16,6 @@ export const CaseOptions = css({
 
 export const OptionButtons = css({
   marginRight: '.3em',
-  background: 'wheat',
 });
 
 export const Step = css({
